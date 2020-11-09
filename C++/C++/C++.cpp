@@ -14,33 +14,44 @@ using namespace std;
 class engine// двигатель
 {
 private:
+	int *power;// мощность (л.с.)
 	string name;// марка двигателя
 	double weight;// вес
-	int power;// мощность (л.с.)
 	int probeg;// пробег
 	int resurs;// ресурс двигателя
 public:
+	engine(const engine &other)
+	{
+		this->power = other.power;// мелкое копирование адреса одинаковые
+		this->name = other.name;
+		this->weight = other.weight;
+		this->probeg = other.probeg;
+		this->resurs = other.resurs;
+	}
 	engine(string init_name, double weight, int power, int probeg, int resurs)// конструктор с параметрами
 	{
+		this->power = new int;
 		this->name = init_name;
 		this->weight = weight;
-		this->power = power;
+		*this->power = power;
 		this->probeg = probeg;
 		this->resurs = resurs;
 	}
 	engine(string name)
 	{
+		this->power = new int;
 		this->name = name;
 		this->weight = 50;
-		this->power = 100;
+		*this->power = 100;
 		this->probeg = 0;
 		this->resurs = 100;
 	}
 	engine()// конструктор без параметров
 	{
+		this->power = new int;
 		name = "No_Name";
 		weight = 10;
-		power = 100;
+		*power = 100;
 		probeg = 0;
 		resurs = 300;
 	}
@@ -56,7 +67,7 @@ public:
 	}
 	void SetPower(int power)
 	{
-		this->power = power;
+		*this->power = power;
 	}
 	void SetProbeg(int probeg)
 	{
@@ -76,7 +87,7 @@ public:
 	}
 	int GetPower()
 	{
-		return power;
+		return *power;
 	}
 	int GetProbeg()
 	{
@@ -98,7 +109,7 @@ public:
 		cout << "Вес двигателя: ";
 		cin >> weight;
 		cout << "Мощность двигателя: ";
-		cin >> power;
+		cin >> *power;
 		cout << "Пробег двигателя: ";
 		cin >> probeg;
 		cout << "Ресурс двигателя: ";
@@ -107,7 +118,7 @@ public:
 	void Print()// вывод данных
 	{
 		cout << "Марка двигателя: " << name << endl;
-		cout << "Мощность двигателя: " << power << endl;
+		cout << "Мощность двигателя: " << *power << endl;
 		cout << "Пробег двигателя: " << probeg << endl;
 		cout << "Ресурс двигателя: " << resurs << endl;
 		cout << "Масса двигателя: ";
@@ -134,7 +145,7 @@ public:
 		this->name = other.name;
 		this->color = other.color;
 		this->price = other.price;
-		this->dvs = other.dvs;
+		this->dvs = other.dvs;// перегрузка оператора присваивания
 
 	}
 	cars(int year, string name, string color, double price, engine dvs)// конструктор с параметрами
@@ -255,9 +266,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	cars *AvtoDin1 = new cars(2020, "No_Name", "No_Color", 5000, dvs);// вызов конструктора со всеми параметрами (динамич объект)
 	cars *AvtoDin2 = new cars(dvs);// вызов конструктора с одним параметром (динамич объект)
 	cars *AvtoDin3 = new cars();// вызов конструктора без параметров (динамич объект)
-	cars avto4 = avto3;
-	AvtoDin3->OutputCars();
-
+	cars avto4 = avto3;// конструктор глубокого копирования
+	avto3.SetYear(2015);// при изменении year у avto3, year у avto4 не меняется
+	avto4.OutputCars();
 	//engine b("св-02", 10, 100, 0, 500);
 	//engine c = a + b;// перегрузка оператора +
 	//++c;// перегрузка оператора ++ префикс
