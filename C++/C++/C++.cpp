@@ -121,33 +121,46 @@ public:
 class cars// класс авто
 {
 private:
+	int *year;// год выпуска
 	string name;// марка авто
 	string color;// цвет авто
-	int year;// год выпуска
 	double price;// цена
 	engine dvs;// двигатель
 public:
-	cars(string name, string color, int year, double price, engine dvs)// конструктор с параметрами
+	cars(const cars &other)
 	{
+		this->year = new int;
+		*this->year = *other.year;
+		this->name = other.name;
+		this->color = other.color;
+		this->price = other.price;
+		this->dvs = other.dvs;
+
+	}
+	cars(int year, string name, string color, double price, engine dvs)// конструктор с параметрами
+	{
+		this->year = new int;
 		this->name = name;
 		this->color = color;
-		this->year = year;
+		*this->year = year;
 		this->price = price;
 		this->dvs = dvs;//установка двигателя
 	}
 	cars(engine dvs)// конструктор с одним параметром
 	{
+		this->year = new int;
 		this->name = "No_Name";
 		this->color = "No_Color";
-		this->year = 2020;
+		*(this->year) = 2020;
 		this->price = 1000;
 		this->dvs = dvs;//установка двигателя
 	}
 	cars()// конструктор без параметров
 	{
+		this->year = new int;
 		name = "No_Name";
 		color = "No_Color";
-		year = 2020;
+		*year = 2020;
 		price = 0;
 
 	}
@@ -162,7 +175,7 @@ public:
 	}
 	void SetYear(int year)
 	{
-		this->year = year;
+		*this->year = year;
 	}
 	void SetPrice(double price)
 	{
@@ -178,7 +191,7 @@ public:
 	}
 	int GetYear()
 	{
-		return year;
+		return *year;
 	}
 	double GetPrice()
 	{
@@ -188,7 +201,7 @@ public:
 	{
 		cout << endl << "Марка машины: " << name << endl;
 		//cout << "Цвет машины: " << color << endl;
-		cout << "Год выпуска: " << year << endl;
+		cout << "Год выпуска: " << *year << endl;
 		cout << "Цена машины: ";
 		printf("%.4lf\n", price);
 		dvs.Print();
@@ -203,7 +216,7 @@ public:
 		cout << "Цвет машины: ";
 		//getline(cin, color);
 		cout << "Год выпуска машины: ";
-		cin >> year;
+		cin >> *year;
 		cout << "Цена: ";
 		cin >> price;
 		dvs.Read();
@@ -234,11 +247,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	SetConsoleOutputCP(1251);
 	system("color F0");
 	// Работа со статическими переменными
-	printf("Статическая переменная\n");
 	printf("Инициализация:");
-	//engine a("св-01", 10, 100, 0, 400);
-	//cars b;
-	//b.OutputCars();
+	engine dvs("св-01", 10, 100, 0, 400);
+	cars avto1(2020, "No_Name", "No_Color", 1000, dvs);// вызов конструктора со всеми параметрами (статич объект)
+	cars avto2(dvs); // вызов конструктора с одним параметром (статич объект)
+	cars avto3; // вызов конструктора без параметров (статич объект)
+	cars *AvtoDin1 = new cars(2020, "No_Name", "No_Color", 5000, dvs);// вызов конструктора со всеми параметрами (динамич объект)
+	cars *AvtoDin2 = new cars(dvs);// вызов конструктора с одним параметром (динамич объект)
+	cars *AvtoDin3 = new cars();// вызов конструктора без параметров (динамич объект)
+	cars avto4 = avto3;
+	AvtoDin3->OutputCars();
+
 	//engine b("св-02", 10, 100, 0, 500);
 	//engine c = a + b;// перегрузка оператора +
 	//++c;// перегрузка оператора ++ префикс
