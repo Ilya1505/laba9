@@ -20,7 +20,7 @@ private:
 	int probeg;// пробег
 	int resurs;// ресурс двигателя
 public:
-	engine(const engine &other)
+	engine(const engine &other)// конструктор с мелким копированием
 	{
 		this->power = other.power;// мелкое копирование адреса одинаковые
 		this->name = other.name;
@@ -138,7 +138,7 @@ private:
 	double price;// цена
 	engine dvs;// двигатель
 public:
-	cars(const cars &other)
+	cars(const cars &other)// коннструктор с глубоким копированием
 	{
 		this->year = new int;
 		*this->year = *other.year;
@@ -182,7 +182,7 @@ public:
 	}
 	void SetColor(string color)
 	{
-		//this->color = color;
+		this->color = color;
 	}
 	void SetYear(int year)
 	{
@@ -198,7 +198,7 @@ public:
 	}
 	string GetColor()
 	{
-		//return color;
+		return color;
 	}
 	int GetYear()
 	{
@@ -258,54 +258,30 @@ int _tmain(int argc, _TCHAR* argv[])
 	SetConsoleOutputCP(1251);
 	system("color F0");
 	// Работа со статическими переменными
-	printf("Инициализация:");
-	engine dvs("св-01", 10, 100, 0, 400);
-	cars avto1(2020, "No_Name", "No_Color", 1000, dvs);// вызов конструктора со всеми параметрами (статич объект)
-	cars avto2(dvs); // вызов конструктора с одним параметром (статич объект)
+	engine dvs1("св-01", 10, 100, 0, 400);
+	engine dvs2(dvs1);// мелкое копирование
+	dvs1.SetPower(500);// при изменении мощности у dvs1, мощность у dvs2 также меняется
+	cout<<"мощность dvs2: "<<dvs2.GetPower()<<endl<<endl;
+	cars avto1(2020, "No_Name", "No_Color", 1000, dvs1);// вызов конструктора со всеми параметрами (статич объект)
+	cars avto2(dvs1); // вызов конструктора с одним параметром (статич объект)
 	cars avto3; // вызов конструктора без параметров (статич объект)
-	cars *AvtoDin1 = new cars(2020, "No_Name", "No_Color", 5000, dvs);// вызов конструктора со всеми параметрами (динамич объект)
-	cars *AvtoDin2 = new cars(dvs);// вызов конструктора с одним параметром (динамич объект)
+	cars *AvtoDin1 = new cars(2020, "No_Name", "No_Color", 5000, dvs1);// вызов конструктора со всеми параметрами (динамич объект)
+	cars *AvtoDin2 = new cars(dvs1);// вызов конструктора с одним параметром (динамич объект)
 	cars *AvtoDin3 = new cars();// вызов конструктора без параметров (динамич объект)
 	cars avto4 = avto3;// конструктор глубокого копирования
 	avto3.SetYear(2015);// при изменении year у avto3, year у avto4 не меняется
+	cout << "машина 1:";
 	avto4.OutputCars();
-	//engine b("св-02", 10, 100, 0, 500);
-	//engine c = a + b;// перегрузка оператора +
-	//++c;// перегрузка оператора ++ префикс
-	//engine dvs = c++;// перегрузка оператора ++ постфикс 
-	//cars avto("no_name", "no_color", 0, 0, 1000, dvs);
-	//avto.OutputCars();
-	//avto.PutCars();
-	//printf("\nДанные после ввода:");
-	//avto.OutputCars();
-	//Drive(&avto);
-	//printf("\nПосле тест-драйва:");
-	//avto.OutputCars();
-	//avto.Modern(100, 200, 500);
-	//printf("\nПосле модернизации:");
-	//avto.OutputCars();
-	//avto.SellCars();
-	//printf("\nПосле продажи:");
-	//avto.OutputCars();
-	////Работа с динамическими переменными
-	//printf("\nДинамическая переменная\n");
-	//printf("Инициализация:\n");
-	//cars* avto1 = new cars("no_name", "no_color", 0, 0, 100, dvs);
-	//avto1->OutputCars();
-	//avto1->PutCars();
-	//printf("\nДанные после ввода:\n");
-	//avto1->OutputCars();
-	//Drive(avto1);
-	//printf("После тест-драйва:\n");
-	//avto1->OutputCars();
-	//avto1->Modern(100, 200, 500);
-	//printf("После модернизации:\n");
-	//avto1->OutputCars();
-	//avto1->SellCars();
-	//printf("После продажи \n");
-	//avto1->OutputCars();
-	//delete avto1;
-	////Работа с динамическим массивом через new
+	avto4.PutCars();
+	printf("\nДанные после ввода:");
+	avto4.OutputCars();
+	Drive(&avto4);
+	printf("\nПосле тест-драйва:");
+	avto4.OutputCars();
+	avto4.Modern(100, 200, 500);
+	printf("\nПосле модернизации:");
+	avto4.OutputCars();
+	//Работа с динамическим массивом через new
 	//int n;
 	//printf("\nДинамический массив с помощью new\n");
 	//printf("\nВведите размерность массива: ");
