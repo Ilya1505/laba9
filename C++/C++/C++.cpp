@@ -141,7 +141,7 @@ public:
 };
 class cars// класс авто
 {
-private:
+public:
 	int *year;// год выпуска
 	string name;// марка авто
 	string color;// цвет авто
@@ -158,7 +158,7 @@ public:
 		this->dvs = other.dvs;// перегрузка оператора присваивания
 
 	}
-	cars(int year, string name, string color, double price, engine dvs)// конструктор с параметрами
+	cars(int year, string name, string color, double price, engine &dvs)// конструктор с параметрами
 	{
 		this->year = new int;
 		this->name = name;
@@ -294,21 +294,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	cars avtoArray[3] = { 1000, 2000, 3000 };
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Машина " + (i + 1) << endl;
+		cout << endl << "Машина " << i + 1;
 		avtoArray[i].OutputCars();
 	}
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Машина " + (i + 1) << endl;
+		cout << endl << "Машина " << i + 1;
 		avtoArray[i].PutCars();
 	}
 	printf("\nДанные после ввода:\n");
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Машина " + (i + 1) << endl;
+		cout << endl << "Машина " << i + 1;
 		avtoArray[i].OutputCars();
 	}
-	printf("Тест-Драйв\n");
 	for (int i = 0; i < 3; i++)
 	{
 		Drive(&avtoArray[i]);
@@ -316,7 +315,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("После тест-драйва:\n");
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Машина " + (i + 1) << endl;
+		cout << endl << "Машина " << i + 1;
 		avtoArray[i].OutputCars();
 	}
 	for (int i = 0; i < 3; i++)
@@ -326,13 +325,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("После модернизации:\n");
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Машина " + (i + 1) << endl;
+		cout << endl << "Машина " << i + 1;
 		avtoArray[i].OutputCars();
 	}
-	delete[] avtoArray;
-	delete AvtoDin1;
-	delete AvtoDin2;
-	delete AvtoDin3;
+	//delete[] avtoArray;
+	//delete AvtoDin1;
+	//delete AvtoDin2;
+	//delete AvtoDin3;
 	getch();
 	return 0;
 }
