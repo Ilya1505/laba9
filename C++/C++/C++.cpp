@@ -1,13 +1,16 @@
 // C++.cpp: определяет точку входа для консольного приложения.
 //
-
 #include "stdafx.h"
 #include <Conio.h>
 #include<Windows.h>
 #include <iostream>
 #include <string>
+
+//const string NAME = "No_Name";
+//const string COLOR = "No_Color";
+
 using namespace std;
-const int LEN = 20;
+
 class engine// двигатель
 {
 private:
@@ -25,44 +28,23 @@ public:
 		this->probeg = probeg;
 		this->resurs = resurs;
 	}
+	engine(string name)
+	{
+		this->name = name;
+		this->weight = 50;
+		this->power = 100;
+		this->probeg = 0;
+		this->resurs = 100;
+	}
 	engine()// конструктор без параметров
 	{
-		name = "no_name";
+		name = "No_Name";
 		weight = 10;
 		power = 100;
 		probeg = 0;
 		resurs = 300;
 	}
 
-	engine operator +(const engine & other)// перегрузка оператора +
-	{
-		engine temp;
-		temp.weight = weight + other.weight;
-		temp.power = power + other.power;
-		temp.probeg = probeg + other.probeg;
-		temp.resurs = resurs + other.resurs;
-		temp.name = name;
-		return temp;
-	}
-
-	engine & operator ++()// перегрузка оператора ++, префиксная форма, возврат по ссылке
-	{
-		weight++;
-		power++;
-		probeg++;
-		resurs++;
-		return *this;
-	}
-
-	engine operator ++(int value)// перегрузка оператора ++, постфиксная форма
-	{
-		engine temp = *this;
-		weight++;
-		power++;
-		probeg++;
-		resurs++;
-		return temp;
-	}
 	// сеттеры и геттеры
 	void SetName(string name)
 	{
@@ -142,35 +124,32 @@ private:
 	string name;// марка авто
 	string color;// цвет авто
 	int year;// год выпуска
-	int count;// количество авто
 	double price;// цена
 	engine dvs;// двигатель
 public:
-	cars(string name, string color, int year, int count, double price, engine dvs)// конструктор с параметрами
+	cars(string name, string color, int year, double price, engine dvs)// конструктор с параметрами
 	{
 		this->name = name;
 		this->color = color;
 		this->year = year;
-		this->count = count;
 		this->price = price;
+		this->dvs = dvs;//установка двигателя
+	}
+	cars(engine dvs)// конструктор с одним параметром
+	{
+		this->name = "No_Name";
+		this->color = "No_Color";
+		this->year = 2020;
+		this->price = 1000;
 		this->dvs = dvs;//установка двигателя
 	}
 	cars()// конструктор без параметров
 	{
-		name = "no_name";
-		color = "no_color";
-		year = 2000;
-		count = 0;
+		name = "No_Name";
+		color = "No_Color";
+		year = 2020;
 		price = 0;
-	}
-	void init(string name, string color, int year, int count, double price, engine dvs)// функция инициализация
-	{
-		this->name = name;
-		this->color = color;
-		this->year = year;
-		this->count = count;
-		this->price = price;
-		this->dvs = dvs;//установка двигателя
+
 	}
 	// сеттеры и геттеры
 	void SetName(string name)
@@ -179,15 +158,11 @@ public:
 	}
 	void SetColor(string color)
 	{
-		this->color = color;
+		//this->color = color;
 	}
 	void SetYear(int year)
 	{
 		this->year = year;
-	}
-	void SetCount(int count)
-	{
-		this->count = count;
 	}
 	void SetPrice(double price)
 	{
@@ -199,15 +174,11 @@ public:
 	}
 	string GetColor()
 	{
-		return color;
+		//return color;
 	}
 	int GetYear()
 	{
 		return year;
-	}
-	int GetCount()
-	{
-		return count;
 	}
 	double GetPrice()
 	{
@@ -216,9 +187,8 @@ public:
 	void OutputCars()// функкция вывода данных
 	{
 		cout << endl << "Марка машины: " << name << endl;
-		cout << "Цвет машины: " << color << endl;
+		//cout << "Цвет машины: " << color << endl;
 		cout << "Год выпуска: " << year << endl;
-		cout << "Количество: " << count << endl;
 		cout << "Цена машины: ";
 		printf("%.4lf\n", price);
 		dvs.Print();
@@ -231,18 +201,12 @@ public:
 		getline(cin, name);
 		fflush(stdin);
 		cout << "Цвет машины: ";
-		getline(cin, color);
+		//getline(cin, color);
 		cout << "Год выпуска машины: ";
 		cin >> year;
-		cout << "Количество: ";
-		cin >> count;
 		cout << "Цена: ";
 		cin >> price;
 		dvs.Read();
-	}
-	void SellCars()// функция продажи авто
-	{
-		count--;
 	}
 	void Modern(double NewWeight, int NewPower, int NewResurs)// модернизация
 	{
@@ -272,96 +236,98 @@ int _tmain(int argc, _TCHAR* argv[])
 	// Работа со статическими переменными
 	printf("Статическая переменная\n");
 	printf("Инициализация:");
-	engine a("св-01", 10, 100, 0, 400);
-	engine b("св-02", 10, 100, 0, 500);
-	engine c = a + b;// перегрузка оператора +
-	++c;// перегрузка оператора ++ префикс
-	engine dvs = c++;// перегрузка оператора ++ постфикс 
-	cars avto("no_name", "no_color", 0, 0, 1000, dvs);
-	avto.OutputCars();
-	avto.PutCars();
-	printf("\nДанные после ввода:");
-	avto.OutputCars();
-	Drive(&avto);
-	printf("\nПосле тест-драйва:");
-	avto.OutputCars();
-	avto.Modern(100, 200, 500);
-	printf("\nПосле модернизации:");
-	avto.OutputCars();
-	avto.SellCars();
-	printf("\nПосле продажи:");
-	avto.OutputCars();
-	//Работа с динамическими переменными
-	printf("\nДинамическая переменная\n");
-	printf("Инициализация:\n");
-	cars* avto1 = new cars("no_name", "no_color", 0, 0, 100, dvs);
-	avto1->OutputCars();
-	avto1->PutCars();
-	printf("\nДанные после ввода:\n");
-	avto1->OutputCars();
-	Drive(avto1);
-	printf("После тест-драйва:\n");
-	avto1->OutputCars();
-	avto1->Modern(100, 200, 500);
-	printf("После модернизации:\n");
-	avto1->OutputCars();
-	avto1->SellCars();
-	printf("После продажи \n");
-	avto1->OutputCars();
-	delete avto1;
-	//Работа с динамическим массивом через new
-	int n;
-	printf("\nДинамический массив с помощью new\n");
-	printf("\nВведите размерность массива: ");
-	scanf("%d", &n);
-	cars* avtoArray = new cars[n];
-	printf("\nИнициализация:\n");
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->init("no_name", "no_color", 0, 0, 1000, dvs);
-	}
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->OutputCars();
-	}
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->PutCars();
-	}
-	printf("\nДанные после ввода:\n");
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->OutputCars();
-	}
-	printf("Тест-Драйв\n");
-	for (int i = 0; i < n; i++)
-	{
-		Drive(avtoArray + i);
-	}
-	printf("После тест-драйва:\n");
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->OutputCars();
-	}
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->Modern(100, 200, 500);
-	}
-	printf("После модернизации:\n");
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->OutputCars();
-	}
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->SellCars();
-	}
-	printf("После продажи \n");
-	for (int i = 0; i < n; i++)
-	{
-		(avtoArray + i)->OutputCars();
-	}
-	delete[] avtoArray;
+	//engine a("св-01", 10, 100, 0, 400);
+	//cars b;
+	//b.OutputCars();
+	//engine b("св-02", 10, 100, 0, 500);
+	//engine c = a + b;// перегрузка оператора +
+	//++c;// перегрузка оператора ++ префикс
+	//engine dvs = c++;// перегрузка оператора ++ постфикс 
+	//cars avto("no_name", "no_color", 0, 0, 1000, dvs);
+	//avto.OutputCars();
+	//avto.PutCars();
+	//printf("\nДанные после ввода:");
+	//avto.OutputCars();
+	//Drive(&avto);
+	//printf("\nПосле тест-драйва:");
+	//avto.OutputCars();
+	//avto.Modern(100, 200, 500);
+	//printf("\nПосле модернизации:");
+	//avto.OutputCars();
+	//avto.SellCars();
+	//printf("\nПосле продажи:");
+	//avto.OutputCars();
+	////Работа с динамическими переменными
+	//printf("\nДинамическая переменная\n");
+	//printf("Инициализация:\n");
+	//cars* avto1 = new cars("no_name", "no_color", 0, 0, 100, dvs);
+	//avto1->OutputCars();
+	//avto1->PutCars();
+	//printf("\nДанные после ввода:\n");
+	//avto1->OutputCars();
+	//Drive(avto1);
+	//printf("После тест-драйва:\n");
+	//avto1->OutputCars();
+	//avto1->Modern(100, 200, 500);
+	//printf("После модернизации:\n");
+	//avto1->OutputCars();
+	//avto1->SellCars();
+	//printf("После продажи \n");
+	//avto1->OutputCars();
+	//delete avto1;
+	////Работа с динамическим массивом через new
+	//int n;
+	//printf("\nДинамический массив с помощью new\n");
+	//printf("\nВведите размерность массива: ");
+	//scanf("%d", &n);
+	//cars* avtoArray = new cars[n];
+	//printf("\nИнициализация:\n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->init("no_name", "no_color", 0, 0, 1000, dvs);
+	//}
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->OutputCars();
+	//}
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->PutCars();
+	//}
+	//printf("\nДанные после ввода:\n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->OutputCars();
+	//}
+	//printf("Тест-Драйв\n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	Drive(avtoArray + i);
+	//}
+	//printf("После тест-драйва:\n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->OutputCars();
+	//}
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->Modern(100, 200, 500);
+	//}
+	//printf("После модернизации:\n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->OutputCars();
+	//}
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->SellCars();
+	//}
+	//printf("После продажи \n");
+	//for (int i = 0; i < n; i++)
+	//{
+	//	(avtoArray + i)->OutputCars();
+	//}
+	//delete[] avtoArray;
 	getch();
 	return 0;
 }
