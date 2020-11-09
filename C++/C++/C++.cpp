@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-//const string NAME = "No_Name";
-//const string COLOR = "No_Color";
 
 using namespace std;
 
@@ -157,14 +155,13 @@ public:
 		this->price = price;
 		this->dvs = dvs;//установка двигателя
 	}
-	cars(engine dvs)// конструктор с одним параметром
+	cars(int price)// конструктор с одним параметром
 	{
 		this->year = new int;
 		this->name = "No_Name";
 		this->color = "No_Color";
 		*(this->year) = 2020;
-		this->price = 1000;
-		this->dvs = dvs;//установка двигателя
+		this->price = price;
 	}
 	cars()// конструктор без параметров
 	{
@@ -172,7 +169,7 @@ public:
 		name = "No_Name";
 		color = "No_Color";
 		*year = 2020;
-		price = 0;
+		price = 1000;
 
 	}
 	// сеттеры и геттеры
@@ -211,7 +208,7 @@ public:
 	void OutputCars()// функкция вывода данных
 	{
 		cout << endl << "Марка машины: " << name << endl;
-		//cout << "Цвет машины: " << color << endl;
+		cout << "Цвет машины: " << color << endl;
 		cout << "Год выпуска: " << *year << endl;
 		cout << "Цена машины: ";
 		printf("%.4lf\n", price);
@@ -225,7 +222,7 @@ public:
 		getline(cin, name);
 		fflush(stdin);
 		cout << "Цвет машины: ";
-		//getline(cin, color);
+		getline(cin, color);
 		cout << "Год выпуска машины: ";
 		cin >> *year;
 		cout << "Цена: ";
@@ -263,10 +260,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	dvs1.SetPower(500);// при изменении мощности у dvs1, мощность у dvs2 также меняется
 	cout<<"мощность dvs2: "<<dvs2.GetPower()<<endl<<endl;
 	cars avto1(2020, "No_Name", "No_Color", 1000, dvs1);// вызов конструктора со всеми параметрами (статич объект)
-	cars avto2(dvs1); // вызов конструктора с одним параметром (статич объект)
+	cars avto2(1000); // вызов конструктора с одним параметром (статич объект)
 	cars avto3; // вызов конструктора без параметров (статич объект)
 	cars *AvtoDin1 = new cars(2020, "No_Name", "No_Color", 5000, dvs1);// вызов конструктора со всеми параметрами (динамич объект)
-	cars *AvtoDin2 = new cars(dvs1);// вызов конструктора с одним параметром (динамич объект)
+	cars *AvtoDin2 = new cars(1000);// вызов конструктора с одним параметром (динамич объект)
 	cars *AvtoDin3 = new cars();// вызов конструктора без параметров (динамич объект)
 	cars avto4 = avto3;// конструктор глубокого копирования
 	avto3.SetYear(2015);// при изменении year у avto3, year у avto4 не меняется
@@ -282,58 +279,48 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("\nПосле модернизации:");
 	avto4.OutputCars();
 	//Работа с динамическим массивом через new
-	//int n;
-	//printf("\nДинамический массив с помощью new\n");
-	//printf("\nВведите размерность массива: ");
-	//scanf("%d", &n);
-	//cars* avtoArray = new cars[n];
-	//printf("\nИнициализация:\n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->init("no_name", "no_color", 0, 0, 1000, dvs);
-	//}
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->OutputCars();
-	//}
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->PutCars();
-	//}
-	//printf("\nДанные после ввода:\n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->OutputCars();
-	//}
-	//printf("Тест-Драйв\n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	Drive(avtoArray + i);
-	//}
-	//printf("После тест-драйва:\n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->OutputCars();
-	//}
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->Modern(100, 200, 500);
-	//}
-	//printf("После модернизации:\n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->OutputCars();
-	//}
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->SellCars();
-	//}
-	//printf("После продажи \n");
-	//for (int i = 0; i < n; i++)
-	//{
-	//	(avtoArray + i)->OutputCars();
-	//}
-	//delete[] avtoArray;
+	cars avtoArray[3] = { 1000, 2000, 3000 };
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Машина " + (i + 1) << endl;
+		avtoArray[i].OutputCars();
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Машина " + (i + 1) << endl;
+		avtoArray[i].PutCars();
+	}
+	printf("\nДанные после ввода:\n");
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Машина " + (i + 1) << endl;
+		avtoArray[i].OutputCars();
+	}
+	printf("Тест-Драйв\n");
+	for (int i = 0; i < 3; i++)
+	{
+		Drive(&avtoArray[i]);
+	}
+	printf("После тест-драйва:\n");
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Машина " + (i + 1) << endl;
+		avtoArray[i].OutputCars();
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		avtoArray[i].Modern(100, 200, 500);
+	}
+	printf("После модернизации:\n");
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Машина " + (i + 1) << endl;
+		avtoArray[i].OutputCars();
+	}
+	delete[] avtoArray;
+	delete AvtoDin1;
+	delete AvtoDin2;
+	delete AvtoDin3;
 	getch();
 	return 0;
 }
