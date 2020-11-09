@@ -18,6 +18,18 @@ private:
 	int probeg;// пробег
 	int resurs;// ресурс двигателя
 public:
+	engine &operator=(const engine &other)// перегрузка опрератора =
+	{
+		if (power != nullptr)// проверка на не нулевое значение указателя
+			delete power;
+		power = new int;
+		*this->power = *other.power;
+		this->name = other.name;
+		this->weight = other.weight;
+		this->probeg = other.probeg;
+		this->resurs = other.resurs;
+		return *this;
+	}
 	engine(const engine &other)// конструктор с мелким копированием
 	{
 		this->power = other.power;// мелкое копирование адреса одинаковые
