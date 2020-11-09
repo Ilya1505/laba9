@@ -328,10 +328,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << endl << "Машина " << i + 1;
 		avtoArray[i].OutputCars();
 	}
-	//delete[] avtoArray;
-	//delete AvtoDin1;
-	//delete AvtoDin2;
-	//delete AvtoDin3;
+	delete[] avtoArray;
+	delete AvtoDin1;
+	delete AvtoDin2;
+	delete AvtoDin3;
 	getch();
 	return 0;
 }
