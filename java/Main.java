@@ -4,7 +4,7 @@ public class Main
 	public static void main(String[] args)
 	{
 	engine dvs1 = new engine("no_name", 10, 100, 0, 1000);// конструктор со всеми параметрами
-	cars avto1 = new cars("no_name", "no_color", 0, 1000, dvs1);// конструктор со всеми параметрами
+	cars avto1 = new cars("no_name", "no_color", 2020, 1000, dvs1);// конструктор со всеми параметрами
 	engine dvs2 = new engine("no_name");// конструктор с одним параметром
 	cars avto2 = new cars(dvs2);// конструктор с одним параметром
 	cars avto3 = new cars();// конструктор без параметров
@@ -14,7 +14,7 @@ public class Main
 	avto1.PutCars();
 	System.out.println(System.lineSeparator()+"Данные после ввода: ");
 	avto1.OutputCars();
-	avto.Drive(rezult);
+	avto1.Drive(rezult);
 	probeg=rezult.km;
 	System.out.println(System.lineSeparator()+"Пробег после тест-драйва: ");
 	System.out.println(probeg+" КМ"+System.lineSeparator());
@@ -63,7 +63,7 @@ public class Main
 		// arrayC[i].OutputCars();
 	// }
 	// System.out.println(System.lineSeparator()+"Общее количество машин: "+avto.GetCount());
-	// }
+	 }
 };
 
 class AfterDrive// вспомогательный класс
@@ -190,9 +190,9 @@ class cars// класс авто
 	public cars(engine dvs)// конструктор с одним параметром
 	{	
 		this.name="no_name";
-		this.color=color;
-		this.year = yr;
-		this.price = pr;
+		this.color="no_color";
+		this.year = 2020;
+		this.price = 10000;
 		this.dvs=dvs;
 	}
 	public cars()// конструктор без параметров
