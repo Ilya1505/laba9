@@ -28,42 +28,41 @@ namespace Си_шарп
             Console.WriteLine("\n\nПосле модернизации:");
             avto1.OutputCars();
             // объявление и инициализация массива автомобилей
-            //engine[] arrayE = new engine[2];
-            //cars[] arrayC = new cars[2];
-            //for (int i = 0; i < arrayC.Length; i++)
-            //{
-            //    arrayE[i] = new engine("no_name", 10, 100, 0, 200);
-            //    arrayC[i] = new cars("no_name", "no_color", 2020, 1000, arrayE[i]);
-            //    Console.WriteLine("\nМашина " + (i + 1));
-            //    arrayC[i].OutputCars();
-            //}
-            //Console.WriteLine("\nВвод данных:");
-            //for (int i = 0; i < arrayC.Length; i++)// заполнение массива
-            //{
-            //    Console.WriteLine("\n");
-            //    arrayC[i].PutCars();
-            //}
-            //Console.WriteLine("\nДанные после ввода:");
-            //for (int i = 0; i < arrayC.Length; i++)// заполнение массива
-            //{
-            //    Console.WriteLine("\n");
-            //    arrayC[i].OutputCars();
-            //}
-            //Console.WriteLine("\nПробег после тест-драйва: ");
-            //for (int i = 0; i < arrayC.Length; i++)// возвращаемы параметр через out
-            //{
-            //    int ProbegTwo;
-            //    arrayC[i].DriveTwo(out ProbegTwo);
-            //    Console.WriteLine("\nМашина " + (i + 1) + ": " + ProbegTwo + "КМ");///////// получить ID через метод
-            //}
-            //Console.WriteLine("\nПосле модернизации: ");
-            //for (int i = 0; i < arrayC.Length; i++)
-            //{
-            //    arrayC[i].Modern(100, 200, 500);
-            //    Console.WriteLine("\n");
-            //    arrayC[i].OutputCars();
-            //}
-            //Console.WriteLine("Общее количество машин: " + cars.GetCount());
+            engine[] arrayE = new engine[2];
+            cars[] arrayC = new cars[2];
+            for (int i = 0; i < arrayC.Length; i++)
+            {
+                arrayE[i] = new engine("no_name", 10, 100, 0, 200);
+                arrayC[i] = new cars("no_name", "no_color", 2020, 1000, arrayE[i]);
+                Console.WriteLine("\nМашина " + (i + 1));
+                arrayC[i].OutputCars();
+            }
+            Console.WriteLine("\nВвод данных:");
+            for (int i = 0; i < arrayC.Length; i++)// заполнение массива
+            {
+                Console.WriteLine("\nМашина " + (i + 1));
+                arrayC[i].PutCars();
+            }
+            Console.WriteLine("\nДанные после ввода:");
+            for (int i = 0; i < arrayC.Length; i++)// заполнение массива
+            {
+                Console.WriteLine("\nМашина " + (i + 1));
+                arrayC[i].OutputCars();
+            }
+            Console.WriteLine("\nПробег после тест-драйва: ");
+            for (int i = 0; i < arrayC.Length; i++)// возвращаемы параметр через out
+            {
+                int ProbegTwo;
+                arrayC[i].DriveTwo(out ProbegTwo);
+                Console.WriteLine("\nМашина " + (i + 1) + ": " + ProbegTwo + "КМ");
+            }
+            Console.WriteLine("\nПосле модернизации: ");
+            for (int i = 0; i < arrayC.Length; i++)
+            {
+                arrayC[i].Modern(100, 200, 500);
+                Console.WriteLine("\n");
+                arrayC[i].OutputCars();
+            }
             Console.ReadKey();
         }
         class engine// двигатель
