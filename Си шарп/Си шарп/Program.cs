@@ -63,7 +63,7 @@ namespace Си_шарп
                 Console.WriteLine("\n");
                 arrayC[i].OutputCars();
             }
-            Console.ReadKey();
+            Console.ReadLine();
         }
         class engine// двигатель
         {
