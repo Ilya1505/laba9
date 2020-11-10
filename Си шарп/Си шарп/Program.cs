@@ -17,17 +17,17 @@ namespace Си_шарп
             cars avto2 = new cars(dvs2);// конструктор с одним параметром
             cars avto3 = new cars();// конструктор без параметров
             avto1.OutputCars();
-            avto.PutCars();
+            avto1.PutCars();
             Console.WriteLine("\nДанные после ввода:");
-            avto.OutputCars();
+            avto1.OutputCars();
             int ProbegFirst = 1;// инициализация переменной для возврата через ref
-            avto.Drive(ref ProbegFirst);
+            avto1.Drive(ref ProbegFirst);
             Console.WriteLine("\nПробег после тест-драйва: ");
             Console.WriteLine(ProbegFirst);
-            avto.Modern(100, 200, 500);
+            avto1.Modern(100, 200, 500);
             Console.WriteLine("\n\nПосле модернизации:");
-            avto.OutputCars();
-            //// объявление и инициализация массива автомобилей
+            avto1.OutputCars();
+            // объявление и инициализация массива автомобилей
             //engine[] arrayE = new engine[2];
             //cars[] arrayC = new cars[2];
             //for (int i = 0; i < arrayC.Length; i++)
@@ -64,7 +64,7 @@ namespace Си_шарп
             //    arrayC[i].OutputCars();
             //}
             //Console.WriteLine("Общее количество машин: " + cars.GetCount());
-            //Console.ReadLine();
+            Console.ReadKey();
         }
         class engine// двигатель
         {
