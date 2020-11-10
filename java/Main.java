@@ -22,48 +22,47 @@ public class Main
 	System.out.println("После модернизации: ");
 	avto1.OutputCars();
 	// массив объектов
-	// engine []arrayE = new engine[2];
-	// for(int i=0;i<arrayE.length;i++)
-	// {
-		// arrayE[i] = new engine("no_name", 10, 100, 0, 300);
-	// }
-	// cars []arrayC = new cars[2];
-	// for(int i=0; i<arrayC.length;i++)
-	// {
-		// arrayC[i]=new cars("no_name", "no_color", 0, 1000, arrayE[i]);
-	// }
-	// for(int i=0; i<arrayC.length;i++)
-	// {	
-		// System.out.println(System.lineSeparator());
-		// arrayC[i].OutputCars();
-	// }
-	// for(int i=0; i<arrayC.length;i++)
-	// {	System.out.println(System.lineSeparator());
-		// arrayC[i].PutCars();
-	// }
-	// System.out.println(System.lineSeparator()+"Данные после ввода: ");
-		// for(int i=0; i<arrayC.length;i++)
-	// {	System.out.println(System.lineSeparator());
-		// arrayC[i].OutputCars();
-	// }
-	// System.out.println(System.lineSeparator()+"Пробег после тест-драйва: ");
-	// for(int i=0; i<arrayC.length;i++)
-	// {	arrayC[i].Drive(rezult);
-		// probeg=rezult.km;
-		// System.out.println(System.lineSeparator());
-		// System.out.println(probeg+" КМ");
-	// }
-	// for(int i=0; i<arrayC.length;i++)
-	// {
-		// arrayC[i].Modern(100, 200, 500);
-	// }
-	// System.out.println(System.lineSeparator()+"После модернизации: ");
-	// for(int i=0; i<arrayC.length;i++)
-	// {	System.out.println(System.lineSeparator());
-		// arrayC[i].OutputCars();
-	// }
-	// System.out.println(System.lineSeparator()+"Общее количество машин: "+avto.GetCount());
-	 }
+	engine []arrayE = new engine[2];
+	for(int i=0;i<arrayE.length;i++)
+	{
+		arrayE[i] = new engine("no_name");// массив объектов созданных через конструктор с одним параметром
+	}
+	cars []arrayC = new cars[2];
+	for(int i=0; i<arrayC.length;i++)
+	{
+		arrayC[i]=new cars(arrayE[i]);// массив объектов созданных через конструктор с одним параметром
+	}
+	for(int i=0; i<arrayC.length;i++)
+	{	
+		System.out.println(System.lineSeparator()+"машина "+(i+1));
+		arrayC[i].OutputCars();
+	}
+	for(int i=0; i<arrayC.length;i++)
+	{	System.out.println(System.lineSeparator()+"машина "+(i+1));
+		arrayC[i].PutCars();
+	}
+	System.out.println(System.lineSeparator()+"Данные после ввода: ");
+		for(int i=0; i<arrayC.length;i++)
+	{	System.out.println(System.lineSeparator()+"машина "+(i+1));
+		arrayC[i].OutputCars();
+	}
+	System.out.println(System.lineSeparator()+"Пробег после тест-драйва: ");
+	for(int i=0; i<arrayC.length;i++)
+	{	arrayC[i].Drive(rezult);
+		probeg=rezult.km;
+		System.out.println(System.lineSeparator()+"машина "+(i+1));
+		System.out.println(probeg+" КМ");
+	}
+	for(int i=0; i<arrayC.length;i++)
+	{
+		arrayC[i].Modern(100, 200, 500);
+	}
+	System.out.println(System.lineSeparator()+"После модернизации: ");
+	for(int i=0; i<arrayC.length;i++)
+	{	System.out.println(System.lineSeparator()+"машина "+(i+1));
+		arrayC[i].OutputCars();
+	}
+	}
 };
 
 class AfterDrive// вспомогательный класс
