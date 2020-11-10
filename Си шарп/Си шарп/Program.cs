@@ -11,13 +11,12 @@ namespace Си_шарп
         static void Main(string[] args)
         {
             Console.WriteLine("Инициализация:\n");
-            engine one = new engine("no_name", 10, 200, 0, 1000);
-            engine two = new engine("no_name", 15, 250, 0, 500);
-            engine dvs = new engine();
-            dvs = one + two;// перегрузка оператора +
-            dvs++;// перегрузка оператора ++
-            cars avto = new cars("no_name", "no_color", 2020, 1000, dvs);
-            avto.OutputCars();
+            engine dvs1 = new engine("No_Name",50,150,0,1000);// конструктор со всеми параметрами
+            cars avto1 = new cars("no_name", "no_color", 2020, 1000, dvs1);// конструктор со всеми параметрами
+            engine dvs2 = new engine("No_Name");// конструктор с одним параметром
+            cars avto2 = new cars(dvs2);// конструктор с одним параметром
+            cars avto3 = new cars();// конструктор без параметров
+            avto1.OutputCars();
             avto.PutCars();
             Console.WriteLine("\nДанные после ввода:");
             avto.OutputCars();
@@ -28,44 +27,44 @@ namespace Си_шарп
             avto.Modern(100, 200, 500);
             Console.WriteLine("\n\nПосле модернизации:");
             avto.OutputCars();
-            // объявление и инициализация массива автомобилей
-            engine[] arrayE = new engine[2];
-            cars[] arrayC = new cars[2];
-            for (int i = 0; i < arrayC.Length; i++)
-            {
-                arrayE[i] = new engine("no_name", 10, 100, 0, 200);
-                arrayC[i] = new cars("no_name", "no_color", 2020, 1000, arrayE[i]);
-                Console.WriteLine("\nМашина " + (i + 1));
-                arrayC[i].OutputCars();
-            }
-            Console.WriteLine("\nВвод данных:");
-            for (int i = 0; i < arrayC.Length; i++)// заполнение массива
-            {
-                Console.WriteLine("\n");
-                arrayC[i].PutCars();
-            }
-            Console.WriteLine("\nДанные после ввода:");
-            for (int i = 0; i < arrayC.Length; i++)// заполнение массива
-            {
-                Console.WriteLine("\n");
-                arrayC[i].OutputCars();
-            }
-            Console.WriteLine("\nПробег после тест-драйва: ");
-            for (int i = 0; i < arrayC.Length; i++)// возвращаемы параметр через out
-            {
-                int ProbegTwo;
-                arrayC[i].DriveTwo(out ProbegTwo);
-                Console.WriteLine("\nМашина " + (i + 1) + ": " + ProbegTwo + "КМ");///////// получить ID через метод
-            }
-            Console.WriteLine("\nПосле модернизации: ");
-            for (int i = 0; i < arrayC.Length; i++)
-            {
-                arrayC[i].Modern(100, 200, 500);
-                Console.WriteLine("\n");
-                arrayC[i].OutputCars();
-            }
-            Console.WriteLine("Общее количество машин: " + cars.GetCount());
-            Console.ReadLine();
+            //// объявление и инициализация массива автомобилей
+            //engine[] arrayE = new engine[2];
+            //cars[] arrayC = new cars[2];
+            //for (int i = 0; i < arrayC.Length; i++)
+            //{
+            //    arrayE[i] = new engine("no_name", 10, 100, 0, 200);
+            //    arrayC[i] = new cars("no_name", "no_color", 2020, 1000, arrayE[i]);
+            //    Console.WriteLine("\nМашина " + (i + 1));
+            //    arrayC[i].OutputCars();
+            //}
+            //Console.WriteLine("\nВвод данных:");
+            //for (int i = 0; i < arrayC.Length; i++)// заполнение массива
+            //{
+            //    Console.WriteLine("\n");
+            //    arrayC[i].PutCars();
+            //}
+            //Console.WriteLine("\nДанные после ввода:");
+            //for (int i = 0; i < arrayC.Length; i++)// заполнение массива
+            //{
+            //    Console.WriteLine("\n");
+            //    arrayC[i].OutputCars();
+            //}
+            //Console.WriteLine("\nПробег после тест-драйва: ");
+            //for (int i = 0; i < arrayC.Length; i++)// возвращаемы параметр через out
+            //{
+            //    int ProbegTwo;
+            //    arrayC[i].DriveTwo(out ProbegTwo);
+            //    Console.WriteLine("\nМашина " + (i + 1) + ": " + ProbegTwo + "КМ");///////// получить ID через метод
+            //}
+            //Console.WriteLine("\nПосле модернизации: ");
+            //for (int i = 0; i < arrayC.Length; i++)
+            //{
+            //    arrayC[i].Modern(100, 200, 500);
+            //    Console.WriteLine("\n");
+            //    arrayC[i].OutputCars();
+            //}
+            //Console.WriteLine("Общее количество машин: " + cars.GetCount());
+            //Console.ReadLine();
         }
         class engine// двигатель
         {
@@ -130,7 +129,7 @@ namespace Си_шарп
                 }
             }
 
-            public engine(string name, Double weight, Int32 power, Int32 probeg, Int32 resurs)// конструктор с параметрами
+            public engine(string name, Double weight, Int32 power, Int32 probeg, Int32 resurs)// конструктор со всеми параметрами
             {
                 this.name = name;
                 this.weight = weight;
@@ -138,13 +137,21 @@ namespace Си_шарп
                 this.probeg = probeg;
                 this.resurs = resurs;
             }
+            public engine(string name)// конструктор с одним параметром
+            {
+                this.name = name;
+                this.weight = 100;
+                this.power = 500;
+                this.probeg = 0;
+                this.resurs = 500;
+            }
             public engine()// конструктор без параметров
             {
                 this.name = "no_name";
                 this.weight = 10;
                 this.power = 100;
                 this.probeg = 0;
-                this.resurs = 300;
+                this.resurs = 500;
             }
             public void Remont()// ремонт двигателя
             {
@@ -171,45 +178,18 @@ namespace Си_шарп
                 Console.WriteLine("Ресурс двигателя: " + resurs);
                 Console.WriteLine("Вес двигателя: " + weight);
             }
-            public static engine operator +(engine one, engine two)// перегрузка оператора +
-            {
-                engine temp = new engine();
-                temp.weight = one.weight + two.weight;
-                temp.power = one.power + two.power;
-                temp.probeg = one.probeg + two.probeg;
-                temp.resurs = one.resurs + two.resurs;
-                return temp;
-            }
-            public static engine operator ++(engine one)
-            {
-                one.weight++;
-                one.power++;
-                one.probeg++;
-                one.resurs++;
-                return one;
-            }
         };
         class cars
         {
-            private static int count;// статическая переменная, хранящая количество созданных объектов cars
-            static public int GetCount()
-            {
-                return count;
-            }
-            private int id;
-            public int Id// свойство класса
-            {
-                get
-                {
-                    return id;
-                }
-            }
             private string name;// марка авто
             public string Name// свойство класса
             {
                 set
                 {
-                    name = value;
+                    if (value != "")
+                    {
+                        name = value;
+                    }
                 }
                 get
                 {
@@ -221,7 +201,8 @@ namespace Си_шарп
             {
                 set
                 {
-                    color = value;
+                    if (value != "")
+                    { color = value; }
                 }
                 get
                 {
@@ -265,15 +246,21 @@ namespace Си_шарп
                 }
             }
 
-            public cars(string name, string color, Int32 yr, Double pr, engine dvs)// конструктор с параметрами
+            public cars(string name, string color, Int32 yr, Double pr, engine dvs)// конструктор со всеми параметрами
             {
                 this.name = name;
                 this.color = color;
                 this.year = yr;
                 this.price = pr;
                 this.dvs = dvs;//установка двигателя
-                count++;
-                id = count;
+            }
+            public cars(engine dvs)// конструктор с одним параметром
+            {
+                this.name = "No_Name";
+                this.color = "No_Color";
+                this.year = 2020;
+                this.price = 0;
+                this.dvs = dvs;//установка двигателя
             }
             public cars()// конструктор без параметров
             {
@@ -281,8 +268,7 @@ namespace Си_шарп
                 color = "no_color";
                 year = 2000;
                 price = 0;
-                count++;
-                id = count;
+                this.dvs = new engine();
             }
 
             public void PutCars()// функкция ввода данных
@@ -299,7 +285,6 @@ namespace Си_шарп
             }
             public void OutputCars()// функция вывода данных
             {
-                Console.WriteLine("ID машины: " + id);
                 Console.WriteLine("Марка машины: " + name);
                 Console.WriteLine("Цвет машины: " + color);
                 Console.WriteLine("Год выпуска машины: " + year);
